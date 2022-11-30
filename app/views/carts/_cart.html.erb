@@ -1,0 +1,45 @@
+
+  <p>
+    <strong>Itemname:</strong>
+    <%= cart.itemname %>
+  </p>
+  <p>
+    <strong>Quantity:</strong>
+    <%= cart.quantity%>
+  </p>
+
+   <p>
+    <strong>Price:</strong>
+    <%= cart.unit_price%>
+  </p>
+
+    <p>
+    <strong>Subtotal:</strong>
+    <%= cart.subtotal%>
+  </p>
+
+<%= form_with(url: change_path) do |f| %>
+  <%= f.hidden_field :item_id,:value => cart.item_id  %>
+  <%= f.hidden_field :subtotal,:value => cart.subtotal%>
+  <button name="button" type="button" onclick="minus(this)">-</button>
+  <%= f.number_field :quantity ,min:0,max:100,value: cart.quantity%>
+  <button name="button" type="button" onclick="plus(this)">+</button>
+  <%= f.submit "Update cart"%>
+<% end %>
+
+
+
+<script>
+    function plus(element){
+      let quantity = element.previousElementSibling.value
+      quantity++;
+      element.previousElementSibling.value = quantity       
+    }
+    function minus(element){
+        let quantity = element.nextElementSibling.value  
+            if(quantity > 1){
+            quantity--;
+            element.nextElementSibling.value = quantity ;
+            }
+    }
+</script>

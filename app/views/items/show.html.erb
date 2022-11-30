@@ -1,0 +1,66 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @item %>
+
+<div>
+   
+  <%=link_to "Add to Cart ",add_to_cart_path(@item.id), class:"btn btn-primary"%><br>
+  <%= link_to "Edit this item", edit_item_path(@item) %><br>|
+  <%= link_to "Back to items", items_path %><br>
+  <%= button_to "Destroy this item", @item, method: :delete %>
+
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Customize Food
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Customize Food</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(url: customize_food_path) do |f| %>
+            <%= f.hidden_field :item_id,:value => @item.id  %>
+            <h5> Add ons:</h5> <br>
+            <%= f.check_box :cheese %>
+            <%= f.label :cheese, "Cheese" %><br>
+            <%= f.check_box :tomato %>
+            <%= f.label :tomato, "Tomato" %><br>
+            <%= f.check_box :butter %>
+            <%= f.label :butter, "Butter" %><br>
+            <%= f.check_box :coriander_powder %>
+            <%= f.label :coriander_powder, "Coriander Powder" %><br><br>
+            <%= f.label :add_on  %><br/>
+
+            <%= f.collection_check_boxes :add_on,["cheese, tomato"],:string,:string, include_hidden: false do |b| %>
+
+              <div class="collection-check-box">
+
+                <%= b.check_box %>
+
+                <%= b.label %>
+
+              </div>
+
+            <% end %>
+
+            <h5>Description for the chef</h5>
+             <%= f.text_area :message, size: "50x5" %>
+            <%= f.submit "Add Customization"%>
+        <%end%>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                     

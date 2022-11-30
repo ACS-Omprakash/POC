@@ -1,0 +1,50 @@
+<div class="menu-container">
+    <div class="row">
+        <div class="col-12">
+           <div class="Search_box" style="padding-left:20px">     
+              <input  id="myInput" type="text" placeholder="search the item" style="width:80%;padding-left:20px" onkeyup= "search()">
+           </div>
+        </div>
+    </div>
+  <div class="container" style="padding:50px;">
+  <div class="row row-cols-1 row-cols-md-3 g-3" id="card-container">
+  <% @items.each do |item| %>
+    <div class="col"  onclick="show(this)">
+        <div class="card " style="overflow-y:scroll;height:300px;overflow:hidden">
+          <%= image_tag "istockphoto-1292437269-612x612.jpg" %>
+          <div class="card-body" id="card-body">
+            <%= render item %>
+            <%= link_to "", item %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+</div>
+<div class="container">
+<%= link_to "New item", new_item_path %>
+</div>
+<script>
+   show = function (element) {
+   let a = element.getElementsByTagName('a')[0].href
+   window.location.href = a
+   };
+
+   function search() {
+const input=document.getElementById("myInput").value.toUpperCase();
+const cardContainer=document.getElementById("card-container");
+const cards= cardContainer.getElementsByClassName("card")
+for (i=0;i<cards.length;i++)
+{
+    if(cards[i].getElementsByTagName('span')[0].innerHTML.toUpperCase().indexOf(input)>-1){
+        cards[i].parentElement.style.display="";
+    }
+    else{
+        cards[i].parentElement.style.display="none";
+    }
+}
+
+}
+
+
+</script>
