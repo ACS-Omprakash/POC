@@ -1,31 +1,39 @@
+    <span><%=image_tag cart.image ,class:"img-thumbnail",style:"width:100px"%></span>
+    <strong class="Cart_items">Itemname:</strong>
+    <span class="cart_items_values"><%= cart.itemname %></span>|
 
-  <p>
-    <strong>Itemname:</strong>
-    <%= cart.itemname %>
-  </p>
-  <p>
-    <strong>Quantity:</strong>
-    <%= cart.quantity%>
-  </p>
+    <strong class="Cart_items">Quantity:</strong>
+    <span class="cart_items_values"><%= cart.quantity%></span>|
 
-   <p>
-    <strong>Price:</strong>
-    <%= cart.unit_price%>
-  </p>
+    <strong class="Cart_items">Price:</strong>
+    <span class="cart_items_values"><%= cart.unit_price%></span>|
 
-    <p>
-    <strong>Subtotal:</strong>
-    <%= cart.subtotal%>
-  </p>
+    <strong class="Cart_items">Subtotal:</strong>
+    <span class="cart_items_values"><%= cart.subtotal%></span>|
 
-<%= form_with(url: change_path) do |f| %>
-  <%= f.hidden_field :item_id,:value => cart.item_id  %>
-  <%= f.hidden_field :subtotal,:value => cart.subtotal%>
-  <button name="button" type="button" onclick="minus(this)">-</button>
-  <%= f.number_field :quantity ,min:0,max:100,value: cart.quantity%>
-  <button name="button" type="button" onclick="plus(this)">+</button>
-  <%= f.submit "Update cart"%>
-<% end %>
+    <strong class="Cart_items">Discount Available:</strong>
+    <span class="cart_items_values"><%= @discount=cart.unit_price*cart.discount.percentage*cart.quantity%></span>|
+     
+  <%if cart.customizedfood.present?%>
+     <span class="cart_items_values"><b>Add ons:</b><%= cart.customizedfood.add_ons.join(",")%></span>|
+     <span class="cart_items_values"><b>Description:</b><%= cart.customizedfood.description%></span>|
+  <% end %>
+
+ 
+<div style="float:left;padding:20px 140px 0 0;">
+  <%= form_with(url: change_path) do |f| %>
+    <%= f.hidden_field :item_id,:value => cart.item_id  %>
+    <%= f.hidden_field :subtotal,:value => cart.subtotal%>
+    <button name="button" type="button" onclick="minus(this)">-</button>
+    <%= f.number_field :quantity,min:0,max:100,value: cart.quantity,style:"width:40px"%>
+    <button name="button" type="button" onclick="plus(this)">+</button>
+    <%= submit_tag "Update cart",style:"margin-left:10px"%>
+    <%= f.submit "Apply discount", formaction: discount_path%>
+  <% end %>
+    <span style="margin-left:400px"><%= button_to "remove item",cart_path(cart.id), method: :delete, class: "btn btn-primary"%>   </span>
+  </div> 
+  
+
 
 
 
@@ -43,3 +51,13 @@
             }
     }
 </script>
+<style>
+  .Cart_items{
+    padding-right:10px;
+    padding-left:10px;
+  }
+  .cart_items_values{
+    padding-right:10px;
+  }
+
+</style>

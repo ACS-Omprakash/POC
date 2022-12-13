@@ -1,4 +1,23 @@
-<%@cart.each do |cart| %>
-   <%=render cart%>
-   
+  <%if @cart.present?%>
+     <%@total=0.0%>
+      <% @cart.each do |cart| %>
+        <div class="card">
+          <div class="card-body" >
+            <%= render cart %>
+            <% @total = @total.to_d + cart.subtotal.to_d%>  
+          </div>
+         </div><br>
+    <%end%>
+   <p><strong>Total:</strong><%= @total %></p>
+      <%=link_to "Place Order ",place_order_path(@total),class:"btn btn-primary"%><br>
+<%else%>
+ <h3 class="position-absolute top-50 start-50 translate-middle"> Cart is empty </h3>
 <%end%>
+<%if @cart.count == nil%>
+ <%@items_in_the_cart = 0%>
+<%else%>
+  <%@items_in_the_cart = @cart.count%>
+<%end%>
+
+
+

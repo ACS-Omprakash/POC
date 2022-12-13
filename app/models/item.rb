@@ -1,4 +1,4 @@
 class Item < ApplicationRecord
-    belongs_to :cart
     has_one :customizedfood
+    belongs_to :discount,optional:true
 end

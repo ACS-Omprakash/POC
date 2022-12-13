@@ -1,19 +1,16 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @item %>
-
-<div>
-   
-  <%=link_to "Add to Cart ",add_to_cart_path(@item.id), class:"btn btn-primary"%><br>
-  <%= link_to "Edit this item", edit_item_path(@item) %><br>|
-  <%= link_to "Back to items", items_path %><br>
-  <%= button_to "Destroy this item", @item, method: :delete %>
-
+<div  style="margin-left:100px;margin-right:100px">
+  <div class="card-body">
+    <%= render @item %>
+    <div >
+      <%=link_to "Add to Cart ",add_to_cart_path(@item.id), class:"btn btn-primary"%>
+      <%= link_to "Back to items", items_path,class:"btn btn-primary" %>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" onclick="fun()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Customize Food
+      </button>
+    </div>
+  </div>
 </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Customize Food
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,41 +23,55 @@
       <div class="modal-body">
         <%= form_with(url: customize_food_path) do |f| %>
             <%= f.hidden_field :item_id,:value => @item.id  %>
-            <h5> Add ons:</h5> <br>
-            <%= f.check_box :cheese %>
-            <%= f.label :cheese, "Cheese" %><br>
-            <%= f.check_box :tomato %>
-            <%= f.label :tomato, "Tomato" %><br>
-            <%= f.check_box :butter %>
-            <%= f.label :butter, "Butter" %><br>
-            <%= f.check_box :coriander_powder %>
-            <%= f.label :coriander_powder, "Coriander Powder" %><br><br>
-            <%= f.label :add_on  %><br/>
-
-            <%= f.collection_check_boxes :add_on,["cheese, tomato"],:string,:string, include_hidden: false do |b| %>
-
-              <div class="collection-check-box">
-
-                <%= b.check_box %>
-
-                <%= b.label %>
-
-              </div>
-
-            <% end %>
+            <h5>Add ons:</h5> <br>
+            <span id="checkbox"> <% Customizedfood::ADD_ONS.each do |key|%>
+             <%= f.check_box :add_ons, {multiple: true}, key, nil%>
+              <%= f.label key%>
+            <%end%></span>
 
             <h5>Description for the chef</h5>
-             <%= f.text_area :message, size: "50x5" %>
-            <%= f.submit "Add Customization"%>
+             <%= f.text_area :message, size: "50x5",id:"description" %>
+           <span type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"> <%= f.submit "Add Customization"%></span>
         <%end%>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Added Customization to the item successfully
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  function fun(){
+      let a = document.getElementById("fooddescription").innerHTML;
+      let b = document.getElementById('checkbox').getElementsByTagName("input");
+      let c = document.getElementById("addons").innerHTML;
+      let d = c.split(",");
+      for(let i in b)
+      {
+        for(let j in d)
+        {  
+          if(b[i].value == d[j])
+            b[i].checked = true
+        }
+      }        
+      let x = "";
+      x += a;
+      let y = document.getElementById("description");
+      y.innerHTML = x;
+  }
+
+</script>
                      

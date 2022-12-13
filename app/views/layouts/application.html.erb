@@ -12,8 +12,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="hero_image" style= "margin-top:4rem;background-size:80rem,50rem;background-repeat: no-repeat;background-attachment: fixed;background-image: url(<%= asset_path 'sc-b1b92a3b316e19ad06d109e51884af71.jpg'%>)">
+  <body class="hero_image" style= "background-color:#F8F8FF;margin-top:4rem;background-size:80rem,50rem;background-repeat: no-repeat;background-attachment: fixed;background-image:{ url(<%= asset_path 'sc-b1b92a3b316e19ad06d109e51884af71.jpg'%>),opacity:0.8}">
        
+      <% flash.each do |type, msg| %>
+       <div class="alert alert-info alert-dissmisible fade show">
+         <%= msg %>
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
+       </div>
+      <% end %>
+
+      
       <%= render 'headers_footers/header'%>
        <%= yield %>
   

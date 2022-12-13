@@ -1,0 +1,28 @@
+<%if @orders.present? %>
+  <%@orders.each do |order|%>
+  <% if order.total > 0%>
+     <div class="card">
+       <div class="card-header" style="background-color:">
+          Order id: <%=order.id%>
+       </div>
+        <div class="card-body">
+         <h5 class="card-title">
+          <%order.carts.each do |ordered_items|%>
+            <%= image_tag ordered_items.image,class:"img-thumbnail",style:"width:100px"%> 
+              <%= ordered_items.itemname %> |
+              <%if ordered_items.customizedfood.present?%>
+                Add Ons: <%= ordered_items.customizedfood.add_ons.join(",")%>
+                Description: <%= ordered_items.customizedfood.description%>
+              <%end%> |
+              Quantity:<%= ordered_items.quantity %>|
+              Subtotal:<%= ordered_items.subtotal%><br><br>
+          <%end%>
+        </h5>
+        <p class="card-text"><h5> Total price:<%=order.total%></h5>
+      <%end %>
+      </div>
+    </div><br>
+  <%end%>
+<%else %>
+  <h3>Place Order </h3>
+<%end %>

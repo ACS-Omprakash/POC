@@ -72,7 +72,7 @@ group :test do
 end
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'pry-rails'
+# gem 'pry-rails'
 
 gem 'sunspot_rails'
 gem 'sunspot_solr'

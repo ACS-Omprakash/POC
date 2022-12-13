@@ -1,7 +1,7 @@
 <div class="menu-container">
     <div class="row">
-        <div class="col-12">
-           <div class="Search_box" style="padding-left:20px">     
+        <div class="col-12" >
+           <div class="Search_box" style="margin-left:113px;position:fixed;width:103%;z-index:1">     
               <input  id="myInput" type="text" placeholder="search the item" style="width:80%;padding-left:20px" onkeyup= "search()">
            </div>
         </div>
@@ -10,8 +10,7 @@
   <div class="row row-cols-1 row-cols-md-3 g-3" id="card-container">
   <% @items.each do |item| %>
     <div class="col"  onclick="show(this)">
-        <div class="card " style="overflow-y:scroll;height:300px;overflow:hidden">
-          <%= image_tag "istockphoto-1292437269-612x612.jpg" %>
+        <div class="card card-primary" style="overflow-y:scroll;overflow-y:hidden;height:300px;" onmouseover="this.style.opacity='0.5'" onmouseout="this.style.opacity='1'" >
           <div class="card-body" id="card-body">
             <%= render item %>
             <%= link_to "", item %>
@@ -31,20 +30,21 @@
    };
 
    function search() {
-const input=document.getElementById("myInput").value.toUpperCase();
-const cardContainer=document.getElementById("card-container");
-const cards= cardContainer.getElementsByClassName("card")
-for (i=0;i<cards.length;i++)
-{
-    if(cards[i].getElementsByTagName('span')[0].innerHTML.toUpperCase().indexOf(input)>-1){
-        cards[i].parentElement.style.display="";
-    }
-    else{
-        cards[i].parentElement.style.display="none";
-    }
-}
+    const input=document.getElementById("myInput").value.toUpperCase();
+    const cardContainer=document.getElementById("card-container");
+    const cards= cardContainer.getElementsByClassName("card")
+      for (i=0;i<cards.length;i++)
 
-}
+      {
+          if(cards[i].getElementsByTagName('span')[0].innerHTML.toUpperCase().indexOf(input)>-1 || cards[i].getElementsByTagName('span')[1].innerHTML.toUpperCase().indexOf(input)>-1 ){
+              cards[i].parentElement.style.display="";
+          }
+          else{
+              cards[i].parentElement.style.display="none";
+          }
+      }
+
+  }
 
 
 </script>

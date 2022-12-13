@@ -53,18 +53,15 @@ class ItemsController < ApplicationController
   end
 
   # DELETE /items/1 or /items/1.json
-  def destroy
-    @item.destroy
+  # def destroy
+  #   @item.destroy
 
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
-   def customize_food
-   end
-  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -74,6 +71,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:itemname, :price, :rating, :itemdescription)
+      params.require(:item).permit(:itemname, :price,:itemdescription)
     end
 end

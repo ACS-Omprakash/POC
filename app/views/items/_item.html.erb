@@ -1,25 +1,23 @@
 <div id="<%= dom_id item %>">
+  <%=image_tag item.image,class:"img-fluid",style:"width:300px;height:200px" %>
   <p>
-    <strong>Itemname:</strong>
-   <span id="item_name"> <%= item.itemname %></span>
+   <span > <%= item.itemname %></span><br>
+   <span><%= item.itemdescription %></span><br>
+    Price:<%= item.price %><br><br>
+    <% if item.discount.present? %>
+      Discount: <span><%= item.discount.name %></span><br>
+    <%end%>
+    <% if item.customizedfood.present? %>
+      <% if item.customizedfood.description.present? %> 
+        Description for the Chef :<span id="fooddescription"><%= item.customizedfood.description %></span><br>
+      <% end %>
+      <% if item.customizedfood.add_ons.present? %> 
+        Add Ons :<span id="addons"><%= item.customizedfood.add_ons.join(",")%></span>
+      <% end %>
+    <% end %>
   </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= item.price %>
   </p>
-
-  <p>
-    <strong>Rating:</strong>
-    <%= item.rating %>
-  </p>
-
-  <p>
-    <strong>Itemdescription:</strong>
-    <%= item.itemdescription %>
-  </p>
-
-</div>
+ </div>
 
 
  
