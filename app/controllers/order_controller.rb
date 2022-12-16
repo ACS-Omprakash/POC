@@ -14,5 +14,16 @@ class OrderController < ApplicationController
         redirect_to items_path
     end
 
+    private
+
+  def order_session
+    if session[:order_id]
+      session[:order_id]
+    else 
+      @order=Order.create
+      session[:order_id]=@order.id
+    end 
+  end 
+
 
 end

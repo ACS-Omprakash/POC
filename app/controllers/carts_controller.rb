@@ -56,10 +56,10 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    cart_item = Cart.find(params[:id])
-    cart_item.destroy
+    @cart_item = Cart.find(params[:id])
+    @cart_item.destroy
     flash[:notice] = "successfully removed"
-    redirect_to request.referer
+    redirect_to carts_show_path
   end
 
   private
