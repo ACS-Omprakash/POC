@@ -13,7 +13,7 @@ class CustomizefoodsController < ApplicationController
             :item_id => params[:item_id]
             )
         end
-       redirect_to request.referer
+       redirect_to item_path(@item.id)
             
     end
     

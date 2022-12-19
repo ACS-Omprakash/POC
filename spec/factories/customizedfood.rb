@@ -1,9 +1,9 @@
 FactoryBot.define do
     factory :customizedfood do
-      sequence(:top_ups) { |n| "top_ups#{n}" }
-      sequence(:description) { |n| "description#{n}"}
-      sequence(:item_id) { |n| n}
-      sequence(:add_ons) { |n| "add_ons#{n}"}
+      sequence(:top_ups) { "top_ups" }
+      sequence(:description) { "description"}
+      sequence(:item_id) {1}
+      sequence(:add_ons) {["cheese","butter"]}
       sequence(:cart_id) { |n| n}
     end
 end

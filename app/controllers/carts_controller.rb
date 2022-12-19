@@ -3,14 +3,14 @@ class CartsController < ApplicationController
 
   def change 
      @order = Order.find(session[:order_id])
-     item = Item.find(params[:item_id])
-     quantity = params[:quantity].to_i
+     @item = Item.find(params[:item_id])
+     @quantity = params[:quantity].to_i
      @cart_items = @order.carts.find_by(item_id: params[:item_id])
-     @cart_items.quantity = quantity
+     @cart_items.quantity = @quantity
      @cart_items.subtotal = (@cart_items.unit_price)*@cart_items.quantity  
      @cart_items.save
      flash[:notice] = "Updated the cart"
-     redirect_to request.referer
+     redirect_to carts_show_path
   end
 
   def show
@@ -52,7 +52,7 @@ class CartsController < ApplicationController
     @cart_items.subtotal = (@cart_items.unit_price - @discount)*@cart_items.quantity  
     @cart_items.save 
     flash[:notice] = "Discount Applied"
-    redirect_to request.referer
+    redirect_to carts_show_path
   end
 
   def destroy
