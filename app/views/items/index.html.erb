@@ -20,9 +20,12 @@
     <% end %>
     </div>
 </div>
-<div class="container">
-<%= link_to "New item", new_item_path %>
+
+
+<div class="container text-center" id="search-results" >
+        <h3>No items found.</h3>
 </div>
+
 <script>
    show = function (element) {
    let a = element.getElementsByTagName('a')[0].href
@@ -30,6 +33,7 @@
    };
 
    function search() {
+    var resultFound;
     const input=document.getElementById("myInput").value.toUpperCase();
     const cardContainer=document.getElementById("card-container");
     const cards= cardContainer.getElementsByClassName("card")
@@ -38,12 +42,18 @@
       {
           if(cards[i].getElementsByTagName('span')[0].innerHTML.toUpperCase().indexOf(input)>-1 || cards[i].getElementsByTagName('span')[1].innerHTML.toUpperCase().indexOf(input)>-1 ){
               cards[i].parentElement.style.display="";
+               resultFound = true;
           }
           else{
               cards[i].parentElement.style.display="none";
+
           }
       }
-
+        if(resultFound) {
+        document.getElementById("search-results").style.display = "none";
+    } else {
+        document.getElementById("search-results").style.display = "";
+    }
   }
 
 
